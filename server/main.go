@@ -1,10 +1,8 @@
 package main
 
 import (
-	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/grpclog"
-	pb "grpctest/pb"
 	"net"
 )
 
@@ -16,13 +14,14 @@ const (
 // 定义helloService并实现约定的接口
 type helloService struct{}
 
-// HelloService ...
 var HelloService = helloService{}
 
+/*
+ rpc SayHello (HelloRequest) returns (HelloReply) {}
+*/
 func (h helloService) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
 	resp := new(pb.HelloReply)
-	resp.Message = "Hello " + in.Name + "."
-
+	resp.Message = "grpc test:Hello " + in.Name + "."
 	return resp, nil
 }
 
